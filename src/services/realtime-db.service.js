@@ -15,7 +15,6 @@ export const useGetDeviceData = () => {
         (async () => {
             onValue(dbRef, (snapshot) => {
                 const data = snapshot.val();
-                console.log(data);
                 const sensorData = data.sensor;
                 setRealData(prev => {
                     return {
@@ -33,16 +32,6 @@ export const useGetDeviceData = () => {
         })();
 
     }, []);
-
-    // await get(child(dbRef, `sensor`)).then((snapshot) => {
-    //     if (snapshot.exists()) {
-    //         console.log(snapshot.val());
-    //     } else {
-    //         console.log("No data available");
-    //     }
-    // }).catch((error) => {
-    //     console.error(error);
-    // });
 
 
     return { isLoading }

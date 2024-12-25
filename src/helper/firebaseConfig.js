@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-
+import { getFirestore } from "firebase/firestore"
 const firebaseConfig = {
     apiKey: "AIzaSyDo4Q1lmUIHYWMTmkk07KAUOo_4L0GbgFQ",
     authDomain: "smart-care-f0ae2.firebaseapp.com",
@@ -18,3 +18,4 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference to the service
 export const database = getDatabase(app);
 
+export const fdb = getFirestore(app)
