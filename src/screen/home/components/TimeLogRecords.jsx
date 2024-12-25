@@ -46,10 +46,10 @@ export default function TimeLogRecords() {
                 <th className="">{index + 1}</th>
                 <td>{moment(item.dateTime).format("hh:mm A")}</td>
                 <td>{moment(item.dateTime).format("DD-MM-YYYY")}</td>
-                <td>{item.acetone}</td>
-                <td>{item.bp}</td>
                 <td>{item.heartRate}</td>
                 <td>{item.sp2}</td>
+                <td>{item.bp}</td>
+                <td>{item.acetone}</td>
                 <td>{item.temperature}</td>
               </tr>
             ))}
