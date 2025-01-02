@@ -5,11 +5,12 @@ import PersonalDetails from "./PersonalDetails";
 import ClinicalDetails from "./ClinicalDetails";
 import LifeStyleDetails from "./LifeStyleDetails";
 import { storeData } from "../../../../services/store-db.service";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function Form() {
-  const { calcData  ,refreshLog} = useDataContext();
+  const { calcData, refreshLog } = useDataContext();
   const navigate = useNavigate();
+  const { test } = useParams();
   const [personalDetailsData, setPersonalDetailsData] = useState({
     age: "",
     gender: "",
@@ -113,7 +114,7 @@ export default function Form() {
   return (
     <div className="card bg-base-100  shadow-xl mx-auto mt-10 p-10 rounded-md w-full">
       <h2 className="font-bold mx-auto text-center text-3xl mt-3  mb-10">
-        Diabetes Prediction using Machine Learning
+        {test} using Machine Learning
       </h2>
       <form onSubmit={handleSubmit}>
         <PersonalDetails

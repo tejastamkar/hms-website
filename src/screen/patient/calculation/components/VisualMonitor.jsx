@@ -15,8 +15,6 @@ import {
 import { useDataContext } from "../../../../context/DataContext";
 import moment from "moment";
 import {
-  Button,
-  ButtonGroup,
   Tab,
   TabPanel,
   Tabs,
@@ -37,7 +35,6 @@ ChartJS.register(
 );
 export default function VisualMonitor() {
   const { logData } = useDataContext();
-  console.log(logData);
   return (
     <div className="p-10 mt-10 w-full">
       <h2 className="font-bold text-2xl my-5">Visual Monitor</h2>

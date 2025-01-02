@@ -18,7 +18,7 @@ function App() {
             <Routes>
               <Route path="/patient/dashboard" element={<PatientDashboard />} />
               <Route
-                path="/patient/calculation"
+                path="/patient/calculation/:test"
                 element={<CalculationPage />}
               />
               <Route path="/doctor/dashboard" element={<DoctorDashboard />} />

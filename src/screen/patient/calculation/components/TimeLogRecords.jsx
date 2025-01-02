@@ -3,7 +3,15 @@ import { useDataContext } from "../../../../context/DataContext";
 import { useGetData } from "../../../../services/store-db.service";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import { IconButton, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  IconButton,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
+  Typography,
+} from "@material-tailwind/react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 export default function TimeLogRecords() {
@@ -28,7 +36,9 @@ export default function TimeLogRecords() {
   ];
   const [active, setActive] = useState(1);
   useEffect(() => {
-    setShowData(logData.slice((active - 1) * dataInEachPage, active * dataInEachPage));
+    setShowData(
+      logData.slice((active - 1) * dataInEachPage, active * dataInEachPage)
+    );
   }, [active, logData]);
   useEffect(() => {
     const totalPages = Math.ceil(logData.length / dataInEachPage);
@@ -49,17 +59,47 @@ export default function TimeLogRecords() {
     <div className="p-10 mt-10 w-full">
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-2xl my-5">Monitoring History</h2>
-
-        <button
-          onClick={() => {
-            getLogData();
-
-            navigate("/patient/calculation");
-          }}
-          className=" px-10 py-2 w-fit h-fit text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-600  text-lg "
-        >
-          Log Data
-        </button>
+        <Menu>
+          <MenuHandler>
+            <Button className=" px-6 py-2 w-fit h-fit text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-600  text-base ">
+              Start Test
+            </Button>
+          </MenuHandler>
+          <MenuList>
+            <MenuItem
+              onClick={() => {
+                getLogData();
+                navigate(`/patient/calculation/${"Diabetes Prediction"}`);
+                window.scrollTo(0, 0);
+              }}
+              className="text-base text-black"
+            >
+              Diabetes Prediction
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                getLogData();
+                navigate(`/patient/calculation/${"Disease 2 Prediction"}`, {
+                  preventScrollReset: true,
+                });
+                window.scrollTo(0, 0);
+              }}
+              className="text-base text-black"
+            >
+              Disease 2 Prediction
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                getLogData();
+                navigate(`/patient/calculation/${"Disease 3 Prediction"}`);
+                window.scrollTo(0, 0);
+              }}
+              className="text-base text-black"
+            >
+              Disease 3 Prediction
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </div>
       <div className="overflow-x-auto">
         <table className="table w-full border-separate border-spacing-y-2">

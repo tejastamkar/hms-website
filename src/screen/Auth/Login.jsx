@@ -4,11 +4,14 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { login } from "../../services/auth.service";
 import { useNavigate } from "react-router";
+import { useUserContext } from "../../context/userContext";
+import { useDataContext } from "../../context/DataContext";
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRole, setSelectedRole] = useState(1);
   const navigate = useNavigate();
-
+  const { getUserDetails } = useUserContext();
+  const { refreshLog } = useDataContext();
   const avatarData = [
     {
       id: 1,
@@ -34,19 +37,20 @@ export default function LoginPage() {
       e.target.password.value,
       selectedRole
     );
-
+    getUserDetails();
+    refreshLog();
     switch (routeTarget) {
       case 1:
         navigate("/patient/dashboard", { replace: true });
         break;
       case 2:
-        navigate("/doctor/dashboard" , { replace: true });
+        navigate("/doctor/dashboard", { replace: true });
         break;
       case 3:
-        navigate("/admin/dashboard" , { replace: true });
+        navigate("/admin/dashboard", { replace: true });
         break;
       default:
-        navigate("/login" , { replace: true });
+        navigate("/login", { replace: true });
     }
   };
   return (
