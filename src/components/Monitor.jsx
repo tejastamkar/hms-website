@@ -1,9 +1,19 @@
-import { useDataContext } from "../../../context/DataContext";
-import imageAssets from "../../../utils/imageAssets";
+import { useDataContext } from "../context/DataContext";
+import imageAssets from "../utils/imageAssets";
 
 export default function Monitor() {
   const { realData } = useDataContext();
-  const { acetone, bp, heartRate, sp2, temperature } = realData;
+  const {
+    acetone,
+    activity,
+    heartRate,
+    diastolic,
+    humidity,
+    spo2,
+    systolic,
+    temperature,
+    weather,
+  } = realData;
   return (
     <div className="card bg-base-100 w-96 shadow-xl mx-auto mt-10 p-4 rounded-md">
       <h2 className="font-bold mx-auto text-center text-3xl mt-3  mb-10">
@@ -21,13 +31,21 @@ export default function Monitor() {
       <div className="flex items-center gap-5 mb-5">
         <img src={imageAssets.spo2} alt="SpO2" className="w-12 h-12" />
         <p className="flex-1 text-lg">SpO2</p>
-        <p className="flex-2 text-lg mr-auto">{sp2}</p>
+        <p className="flex-2 text-lg mr-auto">{spo2}</p>
       </div>
       <div className="flex items-center gap-5 mb-5">
         <img src={imageAssets.bp} alt="BP" className="w-12 h-12" />
-        <p className="flex-1 text-lg">BP</p>
-        <p className="flex-2 text-lg mr-auto">{bp}</p>
+          <p className="flex-1 text-lg">BP</p>
+        <p className="flex-2 text-lg mr-auto">
+          {systolic} | {diastolic}
+        </p>
       </div>
+      <div className="flex items-center gap-5 mb-5">
+        <img src={imageAssets.humidityIcon} alt="BP" className="w-12 h-12" />
+        <p className="flex-1 text-lg">Humidity</p>
+        <p className="flex-2 text-lg mr-auto">{humidity}</p>
+      </div>
+
       <div className="flex items-center gap-5 mb-5">
         <img
           src={imageAssets.cholesterol}
@@ -38,9 +56,27 @@ export default function Monitor() {
         <p className="flex-2 text-lg mr-auto">{acetone}</p>
       </div>
       <div className="flex items-center gap-5 mb-5">
+        <img
+          src={imageAssets.activityIcon}
+          alt="Acetone Level"
+          className="w-12 h-12"
+        />
+        <p className="flex-1 text-lg">Activity</p>
+        <p className="flex-2 text-lg mr-auto">{activity ? "Yes" : "No"}</p>
+      </div>
+      <div className="flex items-center gap-5 mb-5">
         <img src={imageAssets.temp} alt="Temperature" className="w-12 h-12" />
         <p className="flex-1 text-lg">Temperature</p>
         <p className="flex-2 text-lg mr-auto">{temperature}</p>
+      </div>
+      <div className="flex items-center gap-5 mb-5">
+        <img
+          src={imageAssets.weatherIcon}
+          alt="Temperature"
+          className="w-12 h-12"
+        />
+        <p className="flex-1 text-lg">Atmospheric Temperature</p>
+        <p className="flex-2 text-lg mr-auto">{weather}</p>
       </div>
     </div>
   );

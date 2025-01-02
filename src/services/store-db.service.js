@@ -3,15 +3,17 @@ import { fdb } from "../helper/firebaseConfig";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { useDataContext } from "../context/DataContext";
 
 
 
 
-export const storeData = async ({ realData }) => {
+export const storeData = async ({ data }) => {
     try {
-        const docRef = await addDoc(collection(fdb, "Logs"), {
-            ...realData,
+        const userData = localStorage.getItem("user");
+        if (userData == null) return;
+        const uid = JSON.parse(userData).uid;
+        const docRef = await addDoc(collection(fdb, `Users/${uid}/Logs`), {
+            ...data,
             dateTime: moment().utc().format(),
         });
         console.log("Document written with ID: ", docRef.id);
@@ -24,11 +26,15 @@ export const storeData = async ({ realData }) => {
 
 export const useGetData = () => {
     const [isLoading, setIsLoading] = useState(true);
+
     const getData = async () => {
         setIsLoading(true);
 
         let temp = [];
-        const querySnapshot = await getDocs(collection(fdb, "Logs"));
+        const userData = localStorage.getItem("user");
+        if (userData == null) return [];
+        const uid = JSON.parse(userData).uid;
+        const querySnapshot = await getDocs(collection(fdb, `Users/${uid}/Logs`));
 
         querySnapshot.docs.forEach((doc) => {
             temp = [...temp, doc.data()];

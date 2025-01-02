@@ -20,10 +20,14 @@ export const useGetDeviceData = () => {
                     return {
                         ...prev,
                         acetone: sensorData.acetone,
-                        bp: sensorData.bp,
+                        activity: sensorData.activity,
                         heartRate: sensorData.heartRate,
-                        sp2: sensorData.sp2,
+                        diastolic: sensorData.diastolic,
+                        humidity: sensorData.humidity,
+                        spo2: sensorData.spo2,
+                        systolic: sensorData.systolic,
                         temperature: sensorData.temperature,
+                        weather: sensorData.weather,
                     }
                 })
 
