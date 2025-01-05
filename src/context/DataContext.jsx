@@ -36,7 +36,7 @@ export const DataProvider = ({ children }) => {
   const refreshLog = async () => {
     const temp = await getData();
     if (temp.length > 0) {
-      setLogData(temp.slice().reverse());
+      // setLogData(temp.slice().reverse());
       setLogData(temp);
     }
   };

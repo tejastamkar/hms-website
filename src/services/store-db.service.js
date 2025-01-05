@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, orderBy } from "firebase/firestore";
 import { fdb } from "../helper/firebaseConfig";
 import moment from "moment";
 import { toast } from "react-toastify";
@@ -34,15 +34,20 @@ export const useGetData = () => {
         const userData = localStorage.getItem("user");
         if (userData == null) return [];
         const uid = JSON.parse(userData).uid;
-        const querySnapshot = await getDocs(collection(fdb, `Users/${uid}/Logs`));
-
+        const querySnapshot = await getDocs(collection(fdb, `Users/${uid}/Logs`), orderBy("dateTime", "asc"));
+        
         querySnapshot.docs.forEach((doc) => {
+            
             temp = [...temp, doc.data()];
         });
-
+        
         setIsLoading(false);
+        temp.sort((a, b) => {
+            return moment(b.dateTime) - moment(a.dateTime);
+        });
         return temp;
     };
+
     useEffect(() => {
         getData();
 
