@@ -8,6 +8,7 @@ import { UserProvider } from "./context/userContext";
 import DoctorDashboard from "./screen/doctor/dashboard";
 import AdminDashboard from "./screen/admin/dashboard";
 import PatientDashboard from "./screen/patient/dashboard";
+import NotFound from "./NotFound";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
 
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
           <ToastContainer />
