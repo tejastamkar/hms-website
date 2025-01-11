@@ -13,7 +13,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
-
+import * as XLSX from "xlsx";
+// import { saveAs } from "file-saver";
 export default function TimeLogRecords() {
   const { logData, getLogData } = useDataContext();
   const [showData, setShowData] = useState([]);
@@ -55,51 +56,86 @@ export default function TimeLogRecords() {
 
     setActive(active - 1);
   };
+
+  const downloadCSV = () => {
+    const worksheet = XLSX.utils.json_to_sheet(logData);
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+    // 4. Write the workbook to a binary string
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+
+    const blob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Records.xlsx"; // The name of the file to download
+    document.body.appendChild(link);
+    link.click();
+
+    // 6. Clean up the link
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
   return (
     <div className="p-10 mt-10 w-full">
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-2xl my-5">Monitoring History</h2>
-        <Menu>
-          <MenuHandler>
-            <Button className=" px-6 py-2 w-fit h-fit text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-600  text-base ">
-              Start Test
-            </Button>
-          </MenuHandler>
-          <MenuList>
-            <MenuItem
-              onClick={() => {
-                getLogData();
-                navigate(`/patient/calculation/${"Diabetes Prediction"}`);
-                window.scrollTo(0, 0);
-              }}
-              className="text-base text-black"
-            >
-              Diabetes Prediction
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                getLogData();
-                navigate(`/patient/calculation/${"Disease 2 Prediction"}`, {
-                  preventScrollReset: true,
-                });
-                window.scrollTo(0, 0);
-              }}
-              className="text-base text-black"
-            >
-              Disease 2 Prediction
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                getLogData();
-                navigate(`/patient/calculation/${"Disease 3 Prediction"}`);
-                window.scrollTo(0, 0);
-              }}
-              className="text-base text-black"
-            >
-              Disease 3 Prediction
-            </MenuItem>
-          </MenuList>
-        </Menu>
+        <div className="w-[30%] flex flex-row justify-end px-7 gap-2">
+          <Button
+            onClick={downloadCSV}
+            className=" px-4 py-2 w-fit h-fit text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-600  text-base "
+          >
+            Download CSV
+          </Button>
+          <Menu>
+            <MenuHandler>
+              <Button className=" px-4 py-2 w-fit h-fit text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-600  text-base ">
+                Start Test
+              </Button>
+            </MenuHandler>
+            <MenuList>
+              <MenuItem
+                onClick={() => {
+                  getLogData();
+                  navigate(`/patient/calculation/${"Diabetes Prediction"}`);
+                  window.scrollTo(0, 0);
+                }}
+                className="text-base text-black"
+              >
+                Diabetes Prediction
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  getLogData();
+                  navigate(`/patient/calculation/${"Disease 2 Prediction"}`, {
+                    preventScrollReset: true,
+                  });
+                  window.scrollTo(0, 0);
+                }}
+                className="text-base text-black"
+              >
+                Disease 2 Prediction
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  getLogData();
+                  navigate(`/patient/calculation/${"Disease 3 Prediction"}`);
+                  window.scrollTo(0, 0);
+                }}
+                className="text-base text-black"
+              >
+                Disease 3 Prediction
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table className="table w-full border-separate border-spacing-y-2">
