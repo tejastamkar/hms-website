@@ -22,6 +22,7 @@ import {
   TabsHeader,
 } from "@material-tailwind/react";
 import { CiGrid41, CiGrid2H } from "react-icons/ci";
+import { useEffect, useState } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +35,27 @@ ChartJS.register(
   LineElement
 );
 export default function VisualMonitor() {
-  const { logData } = useDataContext();
+  const { realData } = useDataContext();
+  const [logData, setLogData] = useState([]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshLog();
+    }, 5000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const refreshLog = async () => {
+    setLogData((prev) => {
+      const newData = { ...realData, dateTime: moment.now() };
+      const newLogData = [...prev, newData];
+      if (newLogData.length > 8) {
+        newLogData.splice(0, 1);
+      }
+      return newLogData;
+    });
+  };
   return (
     <div className="p-10 mt-10 w-full">
       <h2 className="font-bold text-2xl my-5">Visual Monitor</h2>
@@ -124,9 +145,7 @@ const customConfig = (title, xLabel, yLabel, fontSize) => ({
 
 function HeartBeatVisual({ logData }) {
   const data = {
-    labels: logData?.map((item) =>
-      moment(item.dateTime).format("h:mm A - DD/MM/yyyy")
-    ),
+    labels: logData?.map((item) => moment(item.dateTime).format("h:mm:ss")),
     datasets: [
       {
         label: "Heart Beat Monitor",
@@ -149,9 +168,7 @@ function HeartBeatVisual({ logData }) {
 
 function Spo2Visual({ logData }) {
   const data = {
-    labels: logData?.map((item) =>
-      moment(item.dateTime).format("h:mm A - DD/MM/yyyy")
-    ),
+    labels: logData?.map((item) => moment(item.dateTime).format("h:mm:ss")),
     datasets: [
       {
         label: "SpO2 Monitor",
@@ -174,9 +191,7 @@ function Spo2Visual({ logData }) {
 }
 function BodyTemperatureVisual({ logData }) {
   const data = {
-    labels: logData?.map((item) =>
-      moment(item.dateTime).format("h:mm A - DD/MM/yyyy")
-    ),
+    labels: logData?.map((item) => moment(item.dateTime).format("h:mm:ss")),
     datasets: [
       {
         label: "Body Temperature",
@@ -204,9 +219,7 @@ function BodyTemperatureVisual({ logData }) {
 
 function AcetoneVisual({ logData }) {
   const data = {
-    labels: logData?.map((item) =>
-      moment(item.dateTime).format("h:mm A - DD/MM/yyyy")
-    ),
+    labels: logData?.map((item) => moment(item.dateTime).format("h:mm:ss")),
     datasets: [
       {
         label: "Acetone Level",
@@ -229,9 +242,7 @@ function AcetoneVisual({ logData }) {
 
 function ActivityVisual({ logData }) {
   const data = {
-    labels: logData?.map((item) =>
-      moment(item.dateTime).format("h:mm A - DD/MM/yyyy")
-    ),
+    labels: logData?.map((item) => moment(item.dateTime).format("h:mm:ss")),
     datasets: [
       {
         label: "Activity Data",
@@ -259,9 +270,7 @@ function ActivityVisual({ logData }) {
 
 function HumidityVisual({ logData }) {
   const data = {
-    labels: logData?.map((item) =>
-      moment(item.dateTime).format("h:mm A - DD/MM/yyyy")
-    ),
+    labels: logData?.map((item) => moment(item.dateTime).format("h:mm:ss")),
     datasets: [
       {
         label: "Humidity Data",
@@ -289,9 +298,7 @@ function HumidityVisual({ logData }) {
 
 function WeatherVisual({ logData }) {
   const data = {
-    labels: logData?.map((item) =>
-      moment(item.dateTime).format("h:mm A - DD/MM/yyyy")
-    ),
+    labels: logData?.map((item) => moment(item.dateTime).format("h:mm:ss")),
     datasets: [
       {
         label: "Temperature Data",
