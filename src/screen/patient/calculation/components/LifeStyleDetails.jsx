@@ -1,7 +1,42 @@
 import PropTypes from "prop-types";
 
+/**
+ * The lifestyle details component
+ * @param {object} lifeStyleData The lifestyle data object.
+ * @param {function} handleChange The function to handle the change event.
+ * @returns {React.ReactElement} The lifestyle details component.
+ */
 export default function LifeStyleDetails({ lifeStyleData, handleChange }) {
   const optionsData = ["Low", "Modern", "High"];
+
+  /**
+   * The select options list
+   * @param {string} name The name of the select field.
+   * @param {string} value The value of the select field.
+   * @param {function} onChange The function to handle the change event.
+   * @returns {React.ReactElement} The select options list.
+   */
+  const SelectOptions = ({ name, value, onChange }) => (
+    <select
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="bg-gray-100 rounded-md p-3 text-lg"
+    >
+      <option value="">Select an option</option>
+      {optionsData.map((option) => (
+        <option value={option} key={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+  );
+
+  SelectOptions.propTypes = {
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+  };
 
   return (
     <div className="w-full">
@@ -11,57 +46,33 @@ export default function LifeStyleDetails({ lifeStyleData, handleChange }) {
           <label className="label">
             <span className="label-text font-bold text-xl">Smoking</span>
           </label>
-          <select
+          <SelectOptions
             name="smoking"
             value={lifeStyleData.smoking}
             onChange={handleChange}
-            className="bg-gray-100 rounded-md p-3 text-lg"
-          >
-            <option value="">Select an option</option>
-            {optionsData.map((option) => (
-              <option value={option} key={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="flex flex-col gap-2">
           <label className="label">
             <span className="label-text font-bold text-xl">Drinking</span>
           </label>
-          <select
+          <SelectOptions
             name="drinking"
             value={lifeStyleData.drinking}
             onChange={handleChange}
-            className="bg-gray-100 rounded-md p-3 text-lg"
-          >
-            <option value="">Select an option</option>
-            {optionsData.map((option) => (
-              <option value={option} key={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="flex flex-col gap-2">
           <label className="label">
             <span className="label-text font-bold text-xl">Sleep Pattern</span>
           </label>
-          <select
+          <SelectOptions
             name="sleepPattern"
             value={lifeStyleData.sleepPattern}
             onChange={handleChange}
-            className="bg-gray-100 rounded-md p-3 text-lg"
-          >
-            <option value="">Select an option</option>
-            {optionsData.map((option) => (
-              <option value={option} key={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="flex flex-col gap-2">
@@ -70,19 +81,11 @@ export default function LifeStyleDetails({ lifeStyleData, handleChange }) {
               Physical Activity
             </span>
           </label>
-          <select
+          <SelectOptions
             name="physicalActivity"
             value={lifeStyleData.physicalActivity}
             onChange={handleChange}
-            className="bg-gray-100 rounded-md p-3 text-lg"
-          >
-            <option value="">Select an option</option>
-            {optionsData.map((option) => (
-              <option value={option} key={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          />
         </div>
       </div>
     </div>

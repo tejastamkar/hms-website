@@ -10,26 +10,39 @@ import AdminDashboard from "./screen/admin/dashboard";
 import PatientDashboard from "./screen/patient/dashboard";
 import NotFound from "./NotFound";
 
+// This is the main application component
 function App() {
   return (
+    // This is the root element of the application
     <>
+      {/* This is the context provider for the data */}
       <DataProvider>
+        {/* This is the context provider for the user */}
         <UserProvider>
+          {/* This is the router for the application */}
           <BrowserRouter>
+            {/* This is the routes for the application */}
             <Routes>
+              {/* This route is for the patient dashboard */}
               <Route path="/patient/dashboard" element={<PatientDashboard />} />
+              {/* This route is for the calculation page */}
               <Route
                 path="/patient/calculation/:test"
                 element={<CalculationPage />}
               />
+              {/* This route is for the doctor dashboard */}
               <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
+              {/* This route is for the admin dashboard */}
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              {/* This route is for the login page */}
               <Route path="/login" element={<LoginPage />} />
-
+              {/* This route is for the signup page */}
               <Route path="/signup" element={<SignUpPage />} />
+              {/* This route is for the not found page */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
+          {/* This is the toast container for the application */}
           <ToastContainer />
         </UserProvider>
       </DataProvider>
@@ -38,3 +51,4 @@ function App() {
 }
 
 export default App;
+

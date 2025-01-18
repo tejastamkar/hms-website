@@ -1,5 +1,11 @@
 import PropTypes from "prop-types";
 
+/**
+ * The clinical details component
+ * @param {object} clinicalData The clinical data object.
+ * @param {function} handleChange The function to handle the change event.
+ * @returns {React.ReactElement} The clinical details component.
+ */
 export default function ClinicalDetails({ clinicalData, handleChange }) {
   return (
     <div className="w-full">

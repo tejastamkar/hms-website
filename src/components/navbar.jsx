@@ -1,8 +1,20 @@
 import { useUserContext } from "../context/userContext";
 import { logout } from "../services/auth.service";
 
+/**
+ * The Navbar component is used to display the user information and provide a logout button
+ * @returns {JSX.Element} The JSX element for the Navbar component
+ */
 export default function Navbar() {
+  /**
+   * The user context is used to get the user information
+   * @type {object}
+   */
   const { user } = useUserContext();
+
+  /**
+   * The handleLogout function is used to logout the user
+   */
   const handleLogout = () => {
     logout();
   };

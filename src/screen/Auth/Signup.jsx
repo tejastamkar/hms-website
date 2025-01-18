@@ -4,9 +4,27 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { SignUp } from "../../services/auth.service";
 
+/**
+ * The sign up page component
+ * @returns {React.ReactElement} The sign up page component.
+ */
 export default function SignUpPage() {
+  /**
+   * The state for the selected role
+   * @type {number}
+   */
   const [selectedRole, setSelectedRole] = useState(1);
+
+  /**
+   * The state for showing the password
+   * @type {boolean}
+   */
   const [showPassword, setShowPassword] = useState(false);
+
+  /**
+   * The avatar data for the roles
+   * @type {Array<{id: number, icon: string, text: string}>}
+   */
   const avatarData = [
     {
       id: 1,
@@ -25,9 +43,12 @@ export default function SignUpPage() {
     },
   ];
 
+  /**
+   * Handles the form submission by calling the sign up function
+   * @param {React.FormEvent<HTMLFormElement>} e The form event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
 
     await SignUp({
       data: {
@@ -39,6 +60,7 @@ export default function SignUpPage() {
       },
     });
   };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -93,7 +115,7 @@ export default function SignUpPage() {
                 pattern="^[A-Za-z\s]+$"
                 required
                 autoComplete="name"
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-primary focus:outline-2 focus:-outline-offset-2  sm:text-base"
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-primary focus:outline-2 focus:outline-offset-2  sm:text-base"
               />
             </div>
           </div>
@@ -133,7 +155,7 @@ export default function SignUpPage() {
                 required
                 autoComplete="current-password"
                 pattern=".{8,}"
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-primary focus:outline-2 focus:-outline-offset-2  sm:text-base"
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-primary focus:outline-2 focus:outline-offset-2  sm:text-base"
               />
               <span
                 className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"

@@ -14,7 +14,16 @@ import {
 } from "@material-tailwind/react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import * as XLSX from "xlsx";
-// import { saveAs } from "file-saver";
+/**
+ * This component is used to display the monitoring history of the patient.
+ * It fetches the data from the context and displays it in a table.
+ * The component also includes a button to download the data as a CSV file.
+ * The component also includes a menu button to start the test.
+ * The menu button includes options to select the test to be performed.
+ * The component also includes a button to navigate to the calculation page.
+ * The component also includes a button to navigate to the dashboard page.
+ * @returns {JSX.Element} The JSX element for the component.
+ */
 export default function TimeLogRecords() {
   const { logData, getLogData } = useDataContext();
   const [showData, setShowData] = useState([]);
@@ -57,6 +66,9 @@ export default function TimeLogRecords() {
     setActive(active - 1);
   };
 
+  /**
+   * This function is used to download the data as a CSV file.
+   */
   const downloadCSV = () => {
     const worksheet = XLSX.utils.json_to_sheet(logData);
 
@@ -104,7 +116,9 @@ export default function TimeLogRecords() {
               <MenuItem
                 onClick={() => {
                   getLogData();
-                  navigate(`/patient/calculation/${"Diabetes Prediction"}`);
+                  navigate(`/patient/calculation/${"Diabetes Prediction"}`, {
+                    preventScrollReset: true,
+                  });
                   window.scrollTo(0, 0);
                 }}
                 className="text-base text-black"
@@ -126,7 +140,9 @@ export default function TimeLogRecords() {
               <MenuItem
                 onClick={() => {
                   getLogData();
-                  navigate(`/patient/calculation/${"Disease 3 Prediction"}`);
+                  navigate(`/patient/calculation/${"Disease 3 Prediction"}`, {
+                    preventScrollReset: true,
+                  });
                   window.scrollTo(0, 0);
                 }}
                 className="text-base text-black"

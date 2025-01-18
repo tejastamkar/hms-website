@@ -34,10 +34,20 @@ ChartJS.register(
   Legend,
   LineElement
 );
+/**
+ * The visual monitor component
+ * @returns {React.ReactElement} The visual monitor component.
+ */
 export default function VisualMonitor() {
+  /**
+   * The state for the log data
+   */
   const { realData } = useDataContext();
   const [logData, setLogData] = useState([]);
 
+  /**
+   * Refresh the log data every 5 seconds
+   */
   useEffect(() => {
     const interval = setInterval(() => {
       refreshLog();
@@ -46,6 +56,9 @@ export default function VisualMonitor() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Refresh the log data
+   */
   const refreshLog = async () => {
     setLogData((prev) => {
       const newData = { ...realData, dateTime: moment.now() };

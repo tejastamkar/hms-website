@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 
+/**
+ * The live details component
+ * @param {object} calcData The calculation data object.
+ * @returns {React.ReactElement} The live details component.
+ */
 export default function LiveDetails({ calcData }) {
-  
+  /**
+   * Returns the JSX for the live details component.
+   */
   return (
     <div>
       <h2 className="text-2xl font-bold text-left my-10">Live Details</h2>

@@ -1,10 +1,21 @@
+/**
+ * This service is used to handle user authentication
+ * @module auth.service
+ */
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../helper/firebaseConfig";
 import { toast } from "react-toastify";
 import { createUserService, getUserService } from "./user.service";
 
+/**
+ * This function logs in a user to the application
+ * @param {string} email - The user's email
+ * @param {string} password - The user's password
+ * @param {number} role - The user's role (1 = patient, 2 = doctor, 3 = admin)
+ * @returns {Promise<number>} - The user's role
+ */
 export const login = async (email, password, role) => {
- const routeTarget =   await signInWithEmailAndPassword(auth, email, password)
+    const routeTarget = await signInWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
             const user = userCredential.user;
             const userData = await getUserService({ uid: user.uid, role: role });
@@ -21,7 +32,7 @@ export const login = async (email, password, role) => {
                 email: userData.email,
                 role: userData.role
             }));
-            
+
             return userData.role;
 
         })
@@ -31,11 +42,15 @@ export const login = async (email, password, role) => {
             return 0;
         });
 
-        return routeTarget;
+    return routeTarget;
 
 };
 
-
+/**
+ * This function signs up a user to the application
+ * @param {{data: {name: string, email: string, password: string, role: number}}} data - The user data
+ * @returns {Promise<void>}
+ */
 export const SignUp = async ({ data }) => {
     await createUserWithEmailAndPassword(auth, data.email, data.password)
         .then(async (userCredential) => {
@@ -61,9 +76,12 @@ export const SignUp = async ({ data }) => {
             toast.error(errorMessage);
         });
 
-}
+};
 
-
+/**
+ * This function logs out the user from the application
+ * @returns {Promise<void>}
+ */
 export const logout = async () => {
     signOut(auth).then(() => {
         window.location.href = "/login";
@@ -73,3 +91,5 @@ export const logout = async () => {
         toast.error(errorMessage);
     });
 }
+
+

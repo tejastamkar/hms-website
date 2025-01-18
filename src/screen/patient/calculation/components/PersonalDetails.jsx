@@ -1,10 +1,21 @@
 import PropTypes from "prop-types";
 
+/**
+ * The personal details component
+ * @param {object} props The component props.
+ * @param {object} props.personalDetailsData The personal details data object.
+ * @param {function} props.handleChange The function to handle the change event.
+ * @param {function} props.handleBMI The function to handle the BMI calculation.
+ * @returns {React.ReactElement} The personal details component.
+ */
 export default function PersonalDetails({
   personalDetailsData,
   handleChange,
   handleBMI,
 }) {
+  /**
+   * The JSX for the personal details component.
+   */
   return (
     <div className="w-full">
       <h2 className="text-2xl font-bold text-left my-10">Personal Details</h2>
@@ -84,7 +95,7 @@ export default function PersonalDetails({
             className="bg-gray-100 rounded-md p-3 text-lg"
           />
         </div>
-        <div className="flex flex-col gap-2">
+       {personalDetailsData.gender !== "Male" && <div className="flex flex-col gap-2">
           <label className="label">
             <span className="label-text font-bold text-xl">Pregnancies</span>
           </label>
@@ -96,7 +107,7 @@ export default function PersonalDetails({
             onChange={handleChange}
             className="bg-gray-100 disabled:bg-gray-300 rounded-md p-3 text-lg"
           />
-        </div>
+        </div>}
         <div className="flex flex-col gap-2">
           <label className="label">
             <span className="label-text font-bold text-xl">Family History</span>
@@ -113,6 +124,7 @@ export default function PersonalDetails({
     </div>
   );
 }
+
 
 PersonalDetails.propTypes = {
   personalDetailsData: PropTypes.object.isRequired,

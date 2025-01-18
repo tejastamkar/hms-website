@@ -6,6 +6,13 @@ import { login } from "../../services/auth.service";
 import { useNavigate } from "react-router";
 import { useUserContext } from "../../context/userContext";
 import { useDataContext } from "../../context/DataContext";
+/**
+ * LoginPage
+ *
+ * This component renders the login page for the user.
+ *
+ * @returns {React.ReactElement} The login page component.
+ */
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedRole, setSelectedRole] = useState(1);
@@ -30,6 +37,12 @@ export default function LoginPage() {
     },
   ];
 
+  /**
+   * Handles the form submission by calling the login function and
+   * navigating to the correct route based on the user's role.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e The form event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const routeTarget = await login(
@@ -164,3 +177,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

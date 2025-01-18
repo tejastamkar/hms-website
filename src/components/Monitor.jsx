@@ -1,6 +1,13 @@
 import { useDataContext } from "../context/DataContext";
 import imageAssets from "../utils/imageAssets";
 
+/**
+ * This component displays the real time sensor readings in a card.
+ * It receives the sensor readings from the Data Context and displays them in a table.
+ * The component uses the material-tailwind CSS framework for styling.
+ *
+ * @returns {JSX.Element} The JSX element for the component.
+ */
 export default function Monitor() {
   const { realData } = useDataContext();
   const {
@@ -14,6 +21,7 @@ export default function Monitor() {
     temperature,
     weather,
   } = realData;
+
   return (
     <div className="card bg-base-100 w-96 shadow-xl mx-auto mt-10 p-4 rounded-md">
       <h2 className="font-bold mx-auto text-center text-3xl mt-3  mb-10">
