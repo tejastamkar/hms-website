@@ -4,7 +4,6 @@ import LiveDetails from "./LiveDetails";
 import PersonalDetails from "./PersonalDetails";
 import ClinicalDetails from "./ClinicalDetails";
 import LifeStyleDetails from "./LifeStyleDetails";
-import { storeData } from "../../../../services/store-db.service";
 import { useNavigate, useParams } from "react-router";
 import ResultModal from "./ResultModal";
 
@@ -67,7 +66,6 @@ export default function Form() {
   };
 
   const handleCloseResult = async () => {
-    await storeData({ data: allData });
     clearForm();
     refreshLog();
     navigate(-1);
@@ -163,7 +161,12 @@ export default function Form() {
 
   return (
     <>
-      <ResultModal open={openModal} setOpen={setOpenModal} />
+      <ResultModal
+        open={openModal}
+        setOpen={setOpenModal}
+        allData={allData}
+        onCLose={handleCloseResult}
+      />
       <div className="card bg-base-100  shadow-xl mx-auto mt-10 p-10 rounded-md w-full">
         <h2 className="font-bold mx-auto text-center text-3xl mt-3  mb-10">
           {test} using Machine Learning

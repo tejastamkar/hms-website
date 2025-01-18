@@ -43,6 +43,7 @@ export default function TimeLogRecords() {
     "Humidity",
     "Weather",
     "Temperature",
+    "Result"
   ];
   const [active, setActive] = useState(1);
   useEffect(() => {
@@ -180,6 +181,7 @@ export default function TimeLogRecords() {
                 <td>{item.humidity}</td>
                 <td>{item.weather}</td>
                 <td>{item.temperature}</td>
+                <td>{item.predictionResult}</td>
               </tr>
             ))}
             {isLoading &&
