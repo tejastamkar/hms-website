@@ -50,18 +50,20 @@ export default function VisualMonitor() {
    */
   useEffect(() => {
     const interval = setInterval(() => {
-      refreshLog();
+      refreshLog(realData);
     }, 5000);
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+     
+  }, [realData]);
 
   /**
    * Refresh the log data
+   * @param {Object} newRecord - The new record to add
    */
-  const refreshLog = async () => {
+  const refreshLog = async (newRecord) => {
+    console.log("newRecord", newRecord);
+    const newData = { ...newRecord, dateTime: moment.now() };
     setLogData((prev) => {
-      const newData = { ...realData, dateTime: moment.now() };
       const newLogData = [...prev, newData];
       if (newLogData.length > 8) {
         newLogData.splice(0, 1);
@@ -69,6 +71,8 @@ export default function VisualMonitor() {
       return newLogData;
     });
   };
+
+ 
   return (
     <div className="p-10 mt-10 w-full">
       <h2 className="font-bold text-2xl my-5">Visual Monitor</h2>

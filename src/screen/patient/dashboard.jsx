@@ -32,12 +32,12 @@ export default function PatientDashboard() {
         <>
           {/* If the device data is not being loaded, render the monitor component */}
           <Monitor />
+          {/* Renders the time log records component */}
+          <TimeLogRecords />
+          {/* Renders the visual monitor component */}
+          <VisualMonitor />
         </>
       )}
-      {/* Renders the time log records component */}
-      <TimeLogRecords />
-      {/* Renders the visual monitor component */}
-      <VisualMonitor />
     </div>
   );
 }
